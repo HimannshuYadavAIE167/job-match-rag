@@ -1,3 +1,4 @@
+import hashlib
 import json
 import logging
 import re
@@ -18,9 +19,7 @@ def clean_text(text: str) -> str:
     """Normalize whitespace and strip HTML/control artifacts."""
     if not text:
         return ""
-    # Strip HTML tags if any leaked through scraping
     text = re.sub(r"<[^>]+>", " ", text)
-    # Normalize special dashes, bullets, and spaces
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"[\t\xa0]", " ", text)
     text = re.sub(r"[ ]{2,}", " ", text)
@@ -29,12 +28,6 @@ def clean_text(text: str) -> str:
 
 
 def extract_sections(description: str) -> dict[str, str]:
-    """
-    Heuristically splits a job description into:
-    - role_overview
-    - responsibilities
-    - requirements
-    """
     sections = {
         "role_overview": "",
         "responsibilities": "",
@@ -43,11 +36,6 @@ def extract_sections(description: str) -> dict[str, str]:
 
     resp_headers = r"(responsibilities|what you will do|what you'll do|core tasks|key duties|the role)"
     req_headers = r"(requirements|qualifications|what you need|must have|skills|experience required)"
-
-    pattern = re.compile(
-        rf"(?P<resp>\b{resp_headers}\b[\s\S]*?)?(?P<req>\b{req_headers}\b[\s\S]*)?",
-        re.IGNORECASE
-    )
 
     lines = description.split("\n")
     current_section = "role_overview"
@@ -67,21 +55,32 @@ def extract_sections(description: str) -> dict[str, str]:
     for sec, buf in section_buffers.items():
         sections[sec] = clean_text("\n".join(buf))
 
-    # Fallback: if headers weren't found, keep entire cleaned body in role_overview
     if not sections["responsibilities"] and not sections["requirements"]:
         sections["role_overview"] = clean_text(description)
 
     return sections
 
 
-def create_chunks_from_job(job: dict[str, Any]) -> list[dict[str, Any]]:
-    """Produce semantic chunk documents with structured metadata."""
-    job_id = str(job.get("id", ""))
-    title = job.get("title", "Unknown Title")
-    company = job.get("company", "Unknown Company")
-    location = job.get("location", "Remote")
-    job_url = job.get("job_url", "")
-    description = job.get("description", "")
+def generate_stable_id(job: dict[str, Any], index: int) -> str:
+    """Generate a clean, reproducible ID even if the scraper returned null/empty id."""
+    raw_id = str(job.get("id") or "").strip()
+    if raw_id and raw_id != "None":
+        # Sanitize any spaces/special characters
+        return re.sub(r"[^a-zA-Z0-9_-]", "_", raw_id)
+
+    # Fallback to hashing title + company + index
+    seed = f"{job.get('title', '')}_{job.get('company', '')}_{index}"
+    hashed = hashlib.md5(seed.encode("utf-8")).hexdigest()[:8]
+    return f"job_{index}_{hashed}"
+
+
+def create_chunks_from_job(job: dict[str, Any], index: int) -> list[dict[str, Any]]:
+    job_id = generate_stable_id(job, index)
+    title = str(job.get("title") or "Unknown Title")
+    company = str(job.get("company") or "Unknown Company")
+    location = str(job.get("location") or "Remote")
+    job_url = str(job.get("job_url") or "")
+    description = str(job.get("description") or "")
 
     cleaned_desc = clean_text(description)
     sections = extract_sections(cleaned_desc)
@@ -97,7 +96,7 @@ def create_chunks_from_job(job: dict[str, Any]) -> list[dict[str, Any]]:
         "job_url": job_url,
     }
 
-    # 1. Full context / Summary chunk
+    # 1. Summary chunk
     summary_text = (
         f"Job Title: {title}\n"
         f"Company: {company}\n"
@@ -111,7 +110,7 @@ def create_chunks_from_job(job: dict[str, Any]) -> list[dict[str, Any]]:
     })
     chunk_index += 1
 
-    # 2. Responsibilities chunk (if present)
+    # 2. Responsibilities chunk
     if sections["responsibilities"]:
         resp_text = (
             f"Job Title: {title} at {company}\n"
@@ -124,7 +123,7 @@ def create_chunks_from_job(job: dict[str, Any]) -> list[dict[str, Any]]:
         })
         chunk_index += 1
 
-    # 3. Requirements & Qualifications chunk (critical for matching)
+    # 3. Requirements chunk
     if sections["requirements"]:
         req_text = (
             f"Job Title: {title} at {company}\n"
@@ -152,8 +151,8 @@ def process_all_jobs() -> Path:
     logger.info(f"Loaded {len(jobs)} raw jobs from {RAW_FILE}")
 
     all_chunks = []
-    for job in jobs:
-        chunks = create_chunks_from_job(job)
+    for idx, job in enumerate(jobs):
+        chunks = create_chunks_from_job(job, idx)
         all_chunks.extend(chunks)
 
     with open(PROCESSED_FILE, "w", encoding="utf-8") as f:

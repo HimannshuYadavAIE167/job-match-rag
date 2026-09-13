@@ -1,0 +1,447 @@
+============================================================
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+RETRIEVAL EVALUATION SUMMARY (K=3)
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+Total Test Personas: 5
+Mean Precision@3: 0.1333
+Mean Recall@3:    0.2000
+Mean MRR:           0.1667
+=
+
+Persona Breakdown:
+Resume: res_mle_01
+  Expected: {'job_0_343b0946', 'job_1_aa831eaa'}
+  Retrieved: ['job_7_88d4d12c', 'job_4_601ec784', 'job_9_c710d0c8']
+  P@3: 0.00 | R@3: 0.00 | RR: 0.00
+
+Resume: res_genai_02
+  Expected: {'job_0_343b0946', 'job_1_aa831eaa'}
+  Retrieved: ['job_4_601ec784', 'job_1_aa831eaa', 'job_2_8ef43215']
+  P@3: 0.33 | R@3: 0.50 | RR: 0.50
+
+Resume: res_de_03
+  Expected: {'job_0_343b0946', 'job_1_aa831eaa'}
+  Retrieved: ['job_4_601ec784', 'job_7_88d4d12c', 'job_9_c710d0c8']
+  P@3: 0.00 | R@3: 0.00 | RR: 0.00
+
+Resume: res_be_04
+  Expected: {'job_6_9d5c4894', 'job_4_601ec784'}
+  Retrieved: ['job_8_29c38706', 'job_9_c710d0c8', 'job_6_9d5c4894']
+  P@3: 0.33 | R@3: 0.50 | RR: 0.33
+
+Resume: res_fe_05
+  Expected: {'job_0_343b0946'}
+  Retrieved: ['job_8_29c38706', 'job_9_c710d0c8', 'job_6_9d5c4894']
+  P@3: 0.00 | R@3: 0.00 | RR: 0.00

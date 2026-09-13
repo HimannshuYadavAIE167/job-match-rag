@@ -1,0 +1,17 @@
+# Environments
+venv/
+.env
+
+# Vector store & large data
+vector_store/
+data/raw/
+data/processed/
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Operating system
+.DS_Store
+Thumbs.db

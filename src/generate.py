@@ -1,16 +1,19 @@
+"""
+Generates a grounded, structured explanation of how well a resume matches a
+retrieved job chunk, using Gemini. If no API key is configured or the API
+call fails for any reason, falls back to a deterministic keyword-overlap
+explainer so the app never breaks in front of a user or interviewer.
+"""
 import json
 import logging
-import os
 import re
 from typing import Any
 
-from dotenv import load_dotenv
-
-load_dotenv()
+from src.config import GENERATION_MODEL_NAME, get_api_key
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
@@ -29,21 +32,21 @@ Only output valid JSON. Do not include markdown code fences or conversational co
 
 
 class MatchExplainer:
-    def __init__(self, model_name: str = "gemini-2.5-flash"):
-        # Check standard GEMINI_API_KEY first, fallback to ANTHROPIC_API_KEY if user kept it there
-        self.api_key = os.getenv("GEMINI_API_KEY") or os.getenv("ANTHROPIC_API_KEY")
+    def __init__(self, model_name: str = GENERATION_MODEL_NAME):
+        self.api_key = get_api_key()
         self.model_name = model_name
         self.client = None
 
-        if self.api_key and not self.api_key.startswith("your_"):
+        if self.api_key:
             try:
                 from google import genai
+
                 self.client = genai.Client(api_key=self.api_key)
                 logger.info(f"Gemini client initialized successfully with model: {self.model_name}")
             except Exception as e:
                 logger.warning(f"Failed to initialize Gemini client: {e}")
         else:
-            logger.warning("No valid API key found. Falling back to heuristic explainer.")
+            logger.warning("No valid API key found (checked st.secrets and environment). Falling back to heuristic explainer.")
 
     def explain_match(
         self,
@@ -51,7 +54,7 @@ class MatchExplainer:
         job_title: str,
         company: str,
         job_chunk: str,
-        match_score: float
+        match_score: float,
     ) -> dict[str, Any]:
         """Generates a structured gap analysis and fit summary using Gemini."""
         if self.client:
@@ -74,11 +77,10 @@ Generate the JSON evaluation."""
                         "system_instruction": SYSTEM_INSTRUCTION,
                         "response_mime_type": "application/json",
                         "temperature": 0.2,
-                    }
+                    },
                 )
 
                 content_text = response.text.strip()
-                # Clean any lingering markdown fences if present
                 if content_text.startswith("```"):
                     content_text = re.sub(r"^```[a-zA-Z]*\n?", "", content_text)
                     content_text = re.sub(r"\n?```$", "", content_text).strip()
@@ -94,14 +96,14 @@ Generate the JSON evaluation."""
         resume_text: str,
         job_title: str,
         job_chunk: str,
-        match_score: float
+        match_score: float,
     ) -> dict[str, Any]:
         resume_lower = resume_text.lower()
         chunk_lower = job_chunk.lower()
 
         tech_keywords = [
             "python", "pytorch", "tensorflow", "rag", "langchain", "langgraph",
-            "docker", "kubernetes", "aws", "gcp", "fastapi", "chromadb", "sql"
+            "docker", "kubernetes", "aws", "gcp", "fastapi", "chromadb", "sql",
         ]
 
         found_strengths = [kw for kw in tech_keywords if kw in chunk_lower and kw in resume_lower]
@@ -124,8 +126,8 @@ Generate the JSON evaluation."""
             "skill_gaps": gaps,
             "actionable_recommendations": [
                 "Quantify business and engineering impact in relevant bullet points.",
-                "Explicitly highlight missing tools in your core skills and project descriptions."
-            ]
+                "Explicitly highlight missing tools in your core skills and project descriptions.",
+            ],
         }
 
 
@@ -152,7 +154,7 @@ if __name__ == "__main__":
         job_title=sample_job_title,
         company=sample_company,
         job_chunk=sample_chunk,
-        match_score=0.88
+        match_score=0.88,
     )
 
     print("\n" + "=" * 60)

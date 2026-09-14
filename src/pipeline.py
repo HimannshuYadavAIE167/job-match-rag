@@ -1,22 +1,16 @@
+"""
+End-to-end pipeline: resume text -> hybrid retrieval & re-ranking -> LLM gap analysis.
+"""
 import logging
-import sys
-from pathlib import Path
 from typing import Any
 
-# Ensure project root is in sys.path regardless of how the script is invoked
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-if str(PROJECT_ROOT) not in sys.path:
-    sys.path.insert(0, str(PROJECT_ROOT))
+from src.config import DEFAULT_TOP_K
+from src.generate import MatchExplainer
+from src.retrieve import JobRetriever
 
-try:
-    from src.generate import MatchExplainer
-    from src.retrieve import JobRetriever
-except ImportError:
-    from generate import MatchExplainer
-    from retrieve import JobRetriever
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
 
@@ -25,7 +19,7 @@ class JobMatchPipeline:
     def __init__(
         self,
         retriever: JobRetriever | None = None,
-        explainer: MatchExplainer | None = None
+        explainer: MatchExplainer | None = None,
     ):
         logger.info("Initializing JobMatchPipeline components...")
         self.retriever = retriever or JobRetriever()
@@ -34,23 +28,16 @@ class JobMatchPipeline:
     def run(
         self,
         resume_text: str,
-        top_k: int = 3,
-        generate_explanations: bool = True
+        top_k: int = DEFAULT_TOP_K,
+        generate_explanations: bool = True,
     ) -> list[dict[str, Any]]:
-        """
-        Executes the full RAG pipeline:
-        Resume Text -> Hybrid Retrieval & Re-ranking -> Gemini Gap Analysis
-        """
         clean_resume = resume_text.strip()
         if not clean_resume:
             logger.warning("Empty resume text supplied to pipeline.")
             return []
 
         logger.info(f"Retrieving top {top_k} matching jobs for input profile...")
-        matched_jobs = self.retriever.retrieve_and_rerank(
-            resume_text=clean_resume,
-            top_k=top_k
-        )
+        matched_jobs = self.retriever.retrieve_and_rerank(resume_text=clean_resume, top_k=top_k)
 
         if not matched_jobs:
             logger.info("No matching jobs retrieved.")
@@ -67,27 +54,29 @@ class JobMatchPipeline:
                     job_title=job["title"],
                     company=job["company"],
                     job_chunk=job["best_matching_chunk"],
-                    match_score=job["score"]
+                    match_score=job["score"],
                 )
 
-            results.append({
-                "rank": idx,
-                "job_id": job["job_id"],
-                "title": job["title"],
-                "company": job["company"],
-                "location": job["location"],
-                "job_url": job["job_url"],
-                "match_score": job["score"],
-                "vector_similarity": job["vector_sim"],
-                "lexical_overlap": job["lexical_sim"],
-                "matched_context": job["best_matching_chunk"],
-                "explanation": explanation
-            })
+            results.append(
+                {
+                    "rank": idx,
+                    "job_id": job["job_id"],
+                    "title": job["title"],
+                    "company": job["company"],
+                    "location": job["location"],
+                    "job_url": job["job_url"],
+                    "match_score": job["score"],
+                    "vector_similarity": job["vector_sim"],
+                    "lexical_overlap": job["lexical_sim"],
+                    "matched_context": job["best_matching_chunk"],
+                    "explanation": explanation,
+                }
+            )
 
         return results
 
 
-def match_resume(resume_text: str, top_k: int = 3) -> list[dict[str, Any]]:
+def match_resume(resume_text: str, top_k: int = DEFAULT_TOP_K) -> list[dict[str, Any]]:
     """Convenience functional wrapper."""
     pipeline = JobMatchPipeline()
     return pipeline.run(resume_text, top_k=top_k)

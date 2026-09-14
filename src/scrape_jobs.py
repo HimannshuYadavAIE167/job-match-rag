@@ -1,14 +1,23 @@
+"""
+Collects raw job postings for the corpus.
+
+Tries a live LinkedIn scrape via `jobspy` first. If that fails for any
+reason (rate limiting, network block, missing dependency, schema change),
+it falls back to a small built-in seed dataset so the rest of the pipeline
+(preprocess -> embed -> retrieve -> generate) is never blocked by a flaky
+scraper. Swap in your own dataset (e.g. a Kaggle/HuggingFace job-postings
+dump) by writing directly to `data/raw/jobs.json` in the same schema.
+"""
 import json
 import logging
-from pathlib import Path
+
+from src.config import RAW_DATA_PATH
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
-
-RAW_DATA_PATH = Path("data/raw/jobs.json")
 
 
 def get_mock_jobs() -> list[dict]:
@@ -35,7 +44,7 @@ def get_mock_jobs() -> list[dict]:
                 "- 3+ years experience designing vector search or semantic retrieval systems.\n"
                 "- Hands-on production experience with Docker, Kubernetes, and AWS (SageMaker, S3, ECS).\n"
                 "- Solid grasp of cross-encoders, BM25 hybrid search, and LLM evaluation benchmarks."
-            )
+            ),
         },
         {
             "id": "mock_genai_002",
@@ -56,7 +65,7 @@ def get_mock_jobs() -> list[dict]:
                 "- B.Tech/M.S. in Computer Science or equivalent hands-on experience.\n"
                 "- Mastery of Python, async programming, and API integration.\n"
                 "- Proven portfolio demonstrating multi-agent workflows and tool-calling execution."
-            )
+            ),
         },
         {
             "id": "mock_de_003",
@@ -76,7 +85,7 @@ def get_mock_jobs() -> list[dict]:
                 "- Advanced SQL and Python skills.\n"
                 "- Experience handling high-volume unstructured text pipelines.\n"
                 "- Familiarity with AWS or GCP cloud storage architectures."
-            )
+            ),
         },
         {
             "id": "mock_be_004",
@@ -94,7 +103,7 @@ def get_mock_jobs() -> list[dict]:
                 "Qualifications:\n"
                 "- 4+ years of backend engineering in Python or Go.\n"
                 "- Deep understanding of distributed caching, PostgreSQL, and Linux internals."
-            )
+            ),
         },
         {
             "id": "mock_fe_005",
@@ -109,8 +118,8 @@ def get_mock_jobs() -> list[dict]:
                 "Qualifications:\n"
                 "- Proficient in modern JavaScript/TypeScript, React 18, Next.js.\n"
                 "- Strong eye for UX design and accessibility (WCAG)."
-            )
-        }
+            ),
+        },
     ]
 
 
@@ -118,12 +127,14 @@ def fetch_and_save_jobs(
     search_term: str = "Machine Learning Engineer",
     location: str = "Remote",
     results_wanted: int = 15,
-) -> Path:
+):
+    """Scrape (or fall back to seed data) and persist raw postings to disk."""
     RAW_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     records = []
 
     try:
         from jobspy import scrape_jobs
+
         logger.info(f"Attempting live scrape on LinkedIn for '{search_term}'...")
         jobs_df = scrape_jobs(
             site_name=["linkedin"],  # Omit Indeed to prevent 403 blocks

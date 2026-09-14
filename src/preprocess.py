@@ -1,18 +1,25 @@
+"""
+Turns raw job postings into retrieval-friendly chunks.
+
+Each job is split into up to three semantic chunks (overview,
+responsibilities, requirements) rather than embedded as one giant blob.
+This lets retrieval surface the specific section of a posting that matches
+a resume, and lets the generation step quote the actually-relevant
+requirement instead of the whole job description.
+"""
 import hashlib
 import json
 import logging
 import re
-from pathlib import Path
 from typing import Any
+
+from src.config import PROCESSED_DATA_PATH, RAW_DATA_PATH
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
-
-RAW_FILE = Path("data/raw/jobs.json")
-PROCESSED_FILE = Path("data/processed/chunks.json")
 
 
 def clean_text(text: str) -> str:
@@ -28,11 +35,7 @@ def clean_text(text: str) -> str:
 
 
 def extract_sections(description: str) -> dict[str, str]:
-    sections = {
-        "role_overview": "",
-        "responsibilities": "",
-        "requirements": ""
-    }
+    sections = {"role_overview": "", "responsibilities": "", "requirements": ""}
 
     resp_headers = r"(responsibilities|what you will do|what you'll do|core tasks|key duties|the role)"
     req_headers = r"(requirements|qualifications|what you need|must have|skills|experience required)"
@@ -65,10 +68,8 @@ def generate_stable_id(job: dict[str, Any], index: int) -> str:
     """Generate a clean, reproducible ID even if the scraper returned null/empty id."""
     raw_id = str(job.get("id") or "").strip()
     if raw_id and raw_id != "None":
-        # Sanitize any spaces/special characters
         return re.sub(r"[^a-zA-Z0-9_-]", "_", raw_id)
 
-    # Fallback to hashing title + company + index
     seed = f"{job.get('title', '')}_{job.get('company', '')}_{index}"
     hashed = hashlib.md5(seed.encode("utf-8")).hexdigest()[:8]
     return f"job_{index}_{hashed}"
@@ -96,70 +97,67 @@ def create_chunks_from_job(job: dict[str, Any], index: int) -> list[dict[str, An
         "job_url": job_url,
     }
 
-    # 1. Summary chunk
     summary_text = (
         f"Job Title: {title}\n"
         f"Company: {company}\n"
         f"Location: {location}\n"
         f"Summary: {sections['role_overview'][:500]}"
     )
-    chunks.append({
-        "chunk_id": f"{job_id}_chk_{chunk_index}",
-        "text": summary_text,
-        "metadata": {**base_metadata, "chunk_type": "overview"}
-    })
+    chunks.append(
+        {
+            "chunk_id": f"{job_id}_chk_{chunk_index}",
+            "text": summary_text,
+            "metadata": {**base_metadata, "chunk_type": "overview"},
+        }
+    )
     chunk_index += 1
 
-    # 2. Responsibilities chunk
     if sections["responsibilities"]:
-        resp_text = (
-            f"Job Title: {title} at {company}\n"
-            f"Responsibilities:\n{sections['responsibilities']}"
+        resp_text = f"Job Title: {title} at {company}\nResponsibilities:\n{sections['responsibilities']}"
+        chunks.append(
+            {
+                "chunk_id": f"{job_id}_chk_{chunk_index}",
+                "text": resp_text,
+                "metadata": {**base_metadata, "chunk_type": "responsibilities"},
+            }
         )
-        chunks.append({
-            "chunk_id": f"{job_id}_chk_{chunk_index}",
-            "text": resp_text,
-            "metadata": {**base_metadata, "chunk_type": "responsibilities"}
-        })
         chunk_index += 1
 
-    # 3. Requirements chunk
     if sections["requirements"]:
-        req_text = (
-            f"Job Title: {title} at {company}\n"
-            f"Requirements & Qualifications:\n{sections['requirements']}"
+        req_text = f"Job Title: {title} at {company}\nRequirements & Qualifications:\n{sections['requirements']}"
+        chunks.append(
+            {
+                "chunk_id": f"{job_id}_chk_{chunk_index}",
+                "text": req_text,
+                "metadata": {**base_metadata, "chunk_type": "requirements"},
+            }
         )
-        chunks.append({
-            "chunk_id": f"{job_id}_chk_{chunk_index}",
-            "text": req_text,
-            "metadata": {**base_metadata, "chunk_type": "requirements"}
-        })
         chunk_index += 1
 
     return chunks
 
 
-def process_all_jobs() -> Path:
-    PROCESSED_FILE.parent.mkdir(parents=True, exist_ok=True)
+def process_all_jobs():
+    PROCESSED_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
 
-    if not RAW_FILE.exists():
-        raise FileNotFoundError(f"Input file {RAW_FILE} not found. Run scrape_jobs.py first.")
+    if not RAW_DATA_PATH.exists():
+        raise FileNotFoundError(f"Input file {RAW_DATA_PATH} not found. Run src/scrape_jobs.py first.")
 
-    with open(RAW_FILE, "r", encoding="utf-8") as f:
+    with open(RAW_DATA_PATH, "r", encoding="utf-8") as f:
         jobs = json.load(f)
 
-    logger.info(f"Loaded {len(jobs)} raw jobs from {RAW_FILE}")
+    logger.info(f"Loaded {len(jobs)} raw jobs from {RAW_DATA_PATH}")
 
     all_chunks = []
     for idx, job in enumerate(jobs):
         chunks = create_chunks_from_job(job, idx)
         all_chunks.extend(chunks)
 
-    with open(PROCESSED_FILE, "w", encoding="utf-8") as f:
+    with open(PROCESSED_DATA_PATH, "w", encoding="utf-8") as f:
         json.dump(all_chunks, f, indent=2, ensure_ascii=False)
 
-    logger.info(f"Generated {len(all_chunks)} semantic chunks. Saved to {PROCESSED_FILE}")
-    return PROCESSED_FILE
+    logger.info(f"Generated {len(all_chunks)} semantic chunks. Saved to {PROCESSED_DATA_PATH}")
+    return PROCESSED_DATA_PATH
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 resume_id,resume_text,relevant_job_ids
-res_mle_01,"Machine Learning Engineer experienced in Python, PyTorch, RAG architectures, vector databases like ChromaDB, and Docker containerization.","job_0_343b0946,job_1_aa831eaa"
-res_genai_02,"AI Engineer focused on autonomous multi-agent workflows using LangChain, LangGraph, prompt optimization, and Claude/OpenAI APIs.","job_0_343b0946,job_1_aa831eaa"
-res_de_03,"Data Engineer skilled in distributed ETL pipelines using Apache Spark, SQL, MongoDB, and AWS cloud storage architectures.","job_0_343b0946,job_1_aa831eaa"
-res_be_04,"Senior Backend Developer with hands-on experience in Python, FastAPI microservices, Redis queues, and Docker infrastructure.","job_4_601ec784,job_6_9d5c4894"
-res_fe_05,"Frontend Developer proficient in React 18, TypeScript, Tailwind CSS, and building responsive client-side user interfaces.",job_0_343b0946
+res_mle_01,"Machine Learning Engineer experienced in Python, PyTorch, RAG architectures, vector databases like ChromaDB, and Docker containerization.","job_0_b0df279e,job_1_6f218cb7"
+res_genai_02,"AI Engineer focused on autonomous multi-agent workflows using LangChain, LangGraph, prompt optimization, and Claude/OpenAI APIs.",job_0_b0df279e
+res_de_03,"Data Engineer skilled in distributed ETL pipelines using Apache Spark, SQL, MongoDB, and AWS cloud storage architectures.",job_0_b0df279e
+res_be_04,"Senior Backend Developer with hands-on experience in Python, FastAPI microservices, Redis queues, and Docker infrastructure.",job_0_b0df279e
+res_fe_05,"Frontend Developer proficient in React 18, TypeScript, Tailwind CSS, and building responsive client-side user interfaces.",job_0_b0df279e

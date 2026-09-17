@@ -8,7 +8,7 @@ services:
     env_file:
       - .env
     volumes:
-      - vector_store:/app/vector_store
+      - vector_store_data:/app/vector_store
       - job_data:/app/data
     depends_on:
       - worker
@@ -21,9 +21,9 @@ services:
     env_file:
       - .env
     volumes:
-      - vector_store:/app/vector_store
+      - vector_store_data:/app/vector_store
       - job_data:/app/data
 
 volumes:
-  vector_store:
+  vector_store_data:
   job_data:

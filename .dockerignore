@@ -1,0 +1,14 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.git/
+.gitignore
+vector_store/
+data/raw/
+data/processed/
+.pytest_cache/
+.streamlit/
+*.docx

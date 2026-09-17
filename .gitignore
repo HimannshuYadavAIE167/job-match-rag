@@ -1,17 +1,24 @@
-# Environments
-venv/
+# Environment variables and API keys
 .env
+.env.local
+.streamlit/secrets.toml
 
-# Vector store & large data
-vector_store/
-data/raw/
-data/processed/
+# Internal/Utility scripts & generated documents
+export_to_docx.py
+*.docx
 
-# Python artifacts
+# Python cache & virtual environment
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints/
+*$py.class
+venv/
+.venv/
 
-# Operating system
-.DS_Store
-Thumbs.db
+# Vector store and raw data caches
+vector_store/
+data/raw/jobs.json
+data/processed/chunks.json
+
+# Pytest and build caches
+.pytest_cache/
+.ruff_cache/

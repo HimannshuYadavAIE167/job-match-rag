@@ -9,7 +9,7 @@ import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 
-from config import (
+from src.config import (
     COLLECTION_NAME,
     EMBEDDING_MODEL_NAME,
     PROCESSED_DATA_PATH,

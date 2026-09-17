@@ -196,16 +196,6 @@ there for show.
   scrapers, so the pipeline is designed to degrade gracefully to a seed
   dataset rather than fail outright.
 
-## What I'd improve next
-
-- Swap the lexical re-ranker for a real cross-encoder and quantify the
-  precision delta.
-- Expand the corpus beyond the 5-job seed dataset (or a larger scraped/Kaggle
-  set) and re-run the evaluation at a more statistically meaningful scale.
-- OCR fallback for scanned/image-based PDFs (current PDF parsing is text-layer
-  only, and says so explicitly when it finds nothing extractable).
-- Cache LLM explanations per (resume, job_id) pair to cut API costs.
-
 ## Tech stack
 
 Python, sentence-transformers, ChromaDB, Google Gemini API, Streamlit, Docker, GitHub Actions.
